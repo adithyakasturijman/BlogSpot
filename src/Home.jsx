@@ -5,7 +5,7 @@ const Home = () => {
 
     return (
       <div className="w-full min-h-screen flex flex-col items-center justify-center "
-      style={{ backgroundImage: "url('public/homebg.jpg')" }}>
+      style={{ backgroundImage: "url('/homebg.jpg')" }}>
         <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-full max-w-6xl">
           <div className="w-full md:w-1/2 flex justify-center">
             <img 

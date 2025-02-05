@@ -23,6 +23,7 @@ const Blogs = () => {
       style={{ backgroundImage: "url('/homebg.jpg')" }}
     >
       <h1 className="text-4xl font-bold text-white mb-10 font-mono">Latest Blogs</h1>
+      
 
       <div className="flex flex-col gap-4">
         {blogs.map((blog, index) => (
