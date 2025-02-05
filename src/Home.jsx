@@ -16,8 +16,8 @@ const Home = () => {
           </div>
 
           <div className="w-full md:w-1/2 flex flex-col items-center text-center px-6 ">
-            <h1 className="text-4xl font-bold text-white mb-4">Welcome to BlogSpot</h1>
-            <p className="text-lg text-white ">
+            <h1 className="text-4xl font-bold text-white mb-4 font-mono">Welcome to BlogSpot</h1>
+            <p className="text-lg text-white font-mono">
               Explore amazing articles, stories, and insights on various topics. 
               Stay inspired and keep learning!
             </p>
@@ -26,7 +26,7 @@ const Home = () => {
 
         <div className="mt-30">
           <button 
-            className="text-white bg-gray-700 px-6 py-3 rounded-2xl hover:bg-gray-800 transition-all"
+            className="text-white bg-gray-700 px-6 py-3 rounded-2xl hover:bg-gray-800 transition-all font-mono"
             onClick={() => navigate("/blogs")}
           >
             Start Blogging

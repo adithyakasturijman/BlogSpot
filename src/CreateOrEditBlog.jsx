@@ -35,7 +35,7 @@ const CreateOrEditBlog = () => {
       title: updatedTitle,
       description: updatedDescription,
       author: updatedAuthor,
-      image: blog.image, // You can handle image uploads here as needed
+      image: blog.image,
     };
 
     const storedBlogs = JSON.parse(localStorage.getItem("blogs")) || [];
@@ -57,74 +57,86 @@ const CreateOrEditBlog = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setBlog((prevBlog) => ({ ...prevBlog, image: reader.result }));
+      };
+    }
+  };
+
   return (
-    <div className="w-full max-w-md mx-auto mt-12 bg-white p-6 rounded-lg shadow-md">
-      <h1 className="text-4xl font-bold mb-6">{isEdit ? "Edit Blog" : "Create New Blog"}</h1>
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="space-y-2">
-          <label htmlFor="title" className="block text-lg font-medium">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={blog.title}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="description" className="block text-lg font-medium">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            value={blog.description}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="author" className="block text-lg font-medium">Author</label>
-          <input
-            type="text"
-            id="author"
-            name="author"
-            value={blog.author}
-            onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-md"
-            required
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label htmlFor="image" className="block text-lg font-medium">Image</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            onChange={(e) => setBlog({ ...blog, image: e.target.files[0] })}
-            className="w-full p-2 border border-gray-300 rounded-md"
-          />
-        </div>
-
-        <div className="mt-4 flex justify-between">
-          <button type="submit" className="px-6 py-2 bg-blue-600 text-white rounded-lg">
-            {isEdit ? "Update Blog" : "Create Blog"}
-          </button>
+    <div
+      className="min-h-screen w-full flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: "url('/homebg.jpg')" }}
+    >
+      <div className="bg-gray-200 p-8 rounded-lg shadow-lg w-full max-w-3xl mt-20 min-h-[400px] ">
+        <h2 className="text-2xl py-2 font-mono">
+        {isEdit ? "Edit Blog" : "Add a New Blog"}
+        </h2>
+        <form onSubmit={handleSubmit} className="bg-gray-300 p-6 rounded-lg flex flex-col mt-2">
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium text-left py-2 font-mono">Blog Title</label>
+            <input
+              type="text"
+              name="title"
+              value={blog.title}
+              onChange={handleChange}
+              className="w-full border border-black rounded-md p-2 h-12"
+              placeholder="Enter the title"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium text-left py-2 font-mono">Blog Description</label>
+            <textarea
+              name="description"
+              value={blog.description}
+              onChange={handleChange}
+              className="w-full border border-black rounded-md h-60 p-2"
+              placeholder="Enter the description"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium text-left py-2 font-mono">Author Name</label>
+            <input
+              type="text"
+              name="author"
+              value={blog.author}
+              onChange={handleChange}
+              className="w-full border border-black rounded-md p-2 h-12"
+              placeholder="Enter the author's name"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-medium text-left py-2 font-mono">Upload Image</label>
+            <input
+              type="file"
+              onChange={handleImageChange}
+              className="w-full border border-black rounded-md p-2"
+              accept="image/*"
+            />
+          </div>
+          {blog.image && (
+            <div className="mb-4 flex justify-center">
+              <img src={blog.image} alt="Blog" className="max-w-xs rounded-lg shadow-md" />
+            </div>
+          )}
           <button
-            type="button"
-            onClick={() => navigate("/blogs")}
-            className="px-6 py-2 bg-gray-500 text-white rounded-lg"
+            type="submit"
+            className="bg-blue-500 text-white w-full py-2 rounded-lg hover:bg-blue-600 transition font-mono"
           >
-            Cancel
+            {isEdit ? "Update Blog" : "Add Blog"}
           </button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   );
 };
 
-export default CreateOrEditBlog;
+export default CreateOrEditBlog
